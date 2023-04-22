@@ -5,9 +5,13 @@ from rest_framework import generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.shortcuts import get_object_or_404
+from rest_framework import viewsets
 
 # Create your views here.
 
+
+## generic api
 
 # class Listsss(generics.ListCreateAPIView):
 #     queryset=Student.objects.all()
@@ -18,6 +22,8 @@ from rest_framework.views import APIView
 #     queryset=Student.objects.all()
 #     serializer_class=Searial
     
+    
+## function based api    
     
 # @api_view(['GET','POST'])
 # def list(request):
@@ -41,7 +47,7 @@ from rest_framework.views import APIView
 #         a=Searial(ac)
 #         return Response(a.data)
     
-#     elif request.method=="PUT":
+#      elif request.method=="PUT":
 #         aaa=Searial(ac,data=request.data)
 #         if aaa.is_valid():
 #             aaa.save()
@@ -53,8 +59,9 @@ from rest_framework.views import APIView
 #         ac.delete()
 #         return Response({'msg':'delete'})
     
-    
+#class based api    
 class Listsss(APIView):
+   
     def get(self,request,format=None):
         acc=Student.objects.all()
         ss=Searial(acc,many=True)
@@ -87,14 +94,45 @@ class Listaaa(APIView):
         sw=Student.objects.get(pk=pk)
         sw.delete()
         return Response({'msg':'delete'})
-    
-    
+        
+        
+        
+## viewsets api
 
-        
+
+# class ItemsViewSet(viewsets.ViewSet):
+
+#     queryset = Student.objects.all()
+
+#     def list(self, request):
+#         serializer = Searial(self.queryset, many=True)
+#         return Response(serializer.data)
     
-        
-        
+#     def create(self, request):
+#         serializer = Searial(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return render(serializer.data)
+#         return Response(serializer.data)
+
+#     def retrieve(self, request, pk=None):
+#         item = get_object_or_404(self.queryset, pk=pk)
+#         serializer = Searial(item)
+#         return Response(serializer.data)
     
+#     def delete(self, request, pk=None):
+#         item = get_object_or_404(self.queryset, pk=pk)
+#         # serializer = StudentSerializer(item)
+#         item.delete()
+#         return Response({'msg':'dta delete succefully'})
+    
+#     def put(self, request, pk=None):
+#         item = get_object_or_404(self.queryset, pk=pk)
+#         serializer = Searial(item,data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return render(serializer.data)
+#         return Response(serializer.errors)           
 
 
 
